@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 页面基础配色 / 字体可在这里微调 */
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+/* rain drop 的动画主体（使用 tailwind keyframes 'fall'，我们会用 inline style 改 duration/delay） */
+.rain-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* 不阻塞点击 */
+  overflow: hidden;
+  z-index: 0;
+}
+
+.rain-drop {
+  position: absolute;
+  top: -20vh;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.2)
+  );
+  border-radius: 2px;
+  transform: translateY(0);
+  /* 基本动画名，具体 duration/delay 用内联 style 覆盖 */
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* small glow when hover on logo (提升细节) */
+.logo-glow {
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+.logo-glow:hover {
+  filter: drop-shadow(0 6px 20px rgba(130, 90, 255, 0.45));
+  transform: translateY(-2px) scale(1.02);
+}
