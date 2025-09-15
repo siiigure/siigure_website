@@ -1,6 +1,5 @@
 import Layout from '@/components/Layout';
 import Logo from '@/components/Logo';
-import SocialLinks from '@/components/SocialLinks';
 import Nav from '@/components/Nav';
 import Rain from '@/components/Rain';
 
@@ -11,9 +10,7 @@ export default function Home() {
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Logo />
-          <p className="text-sm text-white/90 hidden md:block">
-            前端工程师 · 写点东西 · 喜欢蓝紫配色
-          </p>
+          <p className="text-sm text-white/90 hidden md:block"></p>
         </div>
 
         <div>
