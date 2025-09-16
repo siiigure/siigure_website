@@ -1,42 +1,23 @@
-import Layout from '@/components/Layout';
-import Logo from '@/components/Logo';
-import Nav from '@/components/Nav';
-import Rain from '@/components/Rain';
-
 export default function Home() {
   return (
-    <Layout>
+    <>
       {/* 顶部栏：名字（左） + 社交（右） */}
-      <header className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Logo />
-          <p className="text-sm text-white/90 hidden md:block"></p>
+      <div className="relative min-h-screen">
+        <div className="mono-55 absolute top-24 whitespace-nowrap text-2xl font-semibold leading-none md:text-4xl lg:top-14 lg:text-[40px]">
+          <div className="pb-2.5 md:pb-3 lg:pb-3.5">Hi, I'm siigure.</div>
+          <div className="pb-0.5 text-sm font-normal md:pb-1 md:text-lg lg:pb-1.5 lg:text-xl">
+            I'm learning front-end development and design, gradually moving
+            toward full-stack.
+          </div>
+          <div className="pb-2.5 md:pb-3 lg:pb-3.5">
+            I aim to find a balance between clean, elegant code and engaging,
+            lively interactions — creating code that feels like art and
+            interfaces that are fun to use. Outside of coding, I spend time
+            watching movies, reading novels, and occasionally capturing small,
+            unplanned moments with my Polaroid.
+          </div>
         </div>
-
-        <div>
-          <SocialLinks />
-        </div>
-      </header>
-
-      {/* 主要介绍区 */}
-      <main className="mt-20 md:mt-28">
-        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">
-          你好，我是{' '}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-purple-200 to-white">
-            Siigure
-          </span>
-          。
-        </h2>
-
-        <p className="mt-4 max-w-2xl text-lg md:text-xl text-white/90">
-          我做前端、拍照、写博客。这里会放我的作品与想法——简洁、冷色系、带点交互。
-        </p>
-
-        <Nav />
-      </main>
-
-      {/* 雨效果（放在页面最底层） */}
-      <Rain />
-    </Layout>
+      </div>
+    </>
   );
 }
