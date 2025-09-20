@@ -1,23 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+export default {
+  content: ['./src/**/*.{js,ts,jsx,tsx}', './app/**/*.{js,ts,jsx,tsx}'], // 根据你项目路径调整
   theme: {
-    extend: {
-      colors: {
-        siigureBlue: '#5f6cff',
-        siigurePurple: '#8b5cf6'
-      },
-      keyframes: {
-        fall: {
-          '0%': { transform: 'translateY(-120vh)', opacity: '0' },
-          '10%': { opacity: '1' },
-          '100%': { transform: 'translateY(120vh)', opacity: '0' }
-        }
-      },
-      animation: {
-        fall: 'fall linear infinite'
-      }
-    }
+    extend: {}
   },
   plugins: []
 };

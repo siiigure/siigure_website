@@ -2,26 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --blanc: 255 255 255;
-  --bleu: 54 69 161;
-}
-
 body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
+  padding: 1rem;
   font-family: 'Inter', sans-serif;
   background: radial-gradient(circle at 50% 50%, #0000, #ffffff10),
     radial-gradient(farthest-side at bottom right, #346080, #0000),
     radial-gradient(farthest-side at top right, #3bacb6, #0000),
     radial-gradient(farthest-corner at bottom left, #73a9ad, #0000),
     radial-gradient(farthest-corner at top left, #4a55a2, #0000);
-  background-blend-mode: overlay;
+  /* background-blend-mode: overlay;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  color: #ffffff;
+  background-repeat: no-repeat; */
+  color: #fff;
 }
 
 body::after {
@@ -40,4 +33,9 @@ body::after {
 ::selection {
   background-color: white;
   color: #7886c7;
+}
+#__next {
+  /* 这个调最外面的内边距 分别对应是上右下左， */
+  /* padding: 10px,10px, 10px 10px; */
+  padding: 10px 10px 10px 10px;
 }
