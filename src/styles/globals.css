@@ -1,16 +1,19 @@
 @tailwind base;
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap');
 @tailwind components;
 @tailwind utilities;
 
 body {
+  /* @apply font-rubik; */
   padding: 1rem;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Alan Sans', sans-serif !important;
   background: radial-gradient(circle at 50% 50%, #0000, #ffffff10),
-    radial-gradient(farthest-side at bottom right, #346080, #0000),
-    radial-gradient(farthest-side at top right, #3bacb6, #0000),
-    radial-gradient(farthest-corner at bottom left, #73a9ad, #0000),
-    radial-gradient(farthest-corner at top left, #4a55a2, #0000);
-  /* background-blend-mode: overlay;
+    radial-gradient(farthest-side at bottom right, #020029, #0000),
+    radial-gradient(farthest-side at top right, #f9d2e4, #0000),
+    radial-gradient(farthest-corner at bottom left, #002ea6, #0000),
+    radial-gradient(farthest-corner at top left, #0d7e9c, #0000);
+  background-blend-mode: overlay;
+  /* 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat; */
@@ -38,4 +41,119 @@ body::after {
   /* 这个调最外面的内边距 分别对应是上右下左， */
   /* padding: 10px,10px, 10px 10px; */
   padding: 10px 10px 10px 10px;
+}
+
+p {
+  line-height: 1.8;
+}
+
+/* 这个页面的样式写index.tsx的样式 在元素上的类名在这里写 */
+.my-text-3xl {
+  font-size: 128px;
+  padding: 10px;
+  margin: 10px;
+}
+
+/* 全局段落行高 */
+p {
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* 大标题 */
+.home-heading {
+  font-size: 6rem;
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+  margin-top: 1rem;
+}
+
+.home-subheading {
+  font-size: 1.5rem; /* 稍大一点 */
+  margin-top: 0.6rem; /* 离大标题远一点 */
+  margin-bottom: 5rem;
+  color: #ffffff; /* 颜色比正文浅但明显 */
+  font-weight: 400;
+}
+
+/* globals.css */
+.social-links {
+  display: flex;
+  gap: 1.5rem; /* 或 2rem，看你想要多大 */
+}
+
+.home-main-grid {
+  display: grid; /* height: 100vh; 或 100% 取决于父元素 */
+  grid-template-columns: 1fr 1fr; /* 两列等宽 */
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+.home-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 推到底部 */
+  gap: 2rem;
+  height: 100%; /* 占满父容器高度 */
+  padding-bottom: 3rem; /* 离底部留空 */
+}
+
+.home-left .home-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 全局文字排版优化 */
+.home-right {
+  max-width: 600px; /* 控制段落宽度，阅读舒适 */
+  margin: 0 auto; /* 居中 */
+}
+
+/* 段落间距 */
+.home-right p {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #e5e7eb;
+}
+
+@media (min-width: 768px) {
+  .home-main-grid {
+    grid-template-columns: 1fr 2fr; /* 左右比例：左1，右2 */
+  }
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  position: relative;
+  font-weight: 500;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  color: inherit;
+  margin-bottom: 0; /* 默认不加间距 */
+}
+
+/* 仅最后一个元素生效 */
+.nav-item:last-child {
+  margin-bottom: 2rem;
+}
+
+/* 横线在文字左边 */
+.nav-item::before {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 4rem; /* 默认短横线，之前 3rem -> 改大一点 */
+  background-color: #fff;
+  opacity: 0.5;
+  transition: width 0.2s ease, opacity 0.2s ease; /* 速度加快，之前 0.3s -> 0.2s */
+}
+
+/* 悬停或当前页 */
+.nav-item:hover::before,
+.nav-item.active::before {
+  width: 6rem; /* 伸长横线更长，之前 4.5rem -> 6rem */
+  opacity: 1;
 }
