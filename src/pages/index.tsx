@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <ScrollSnapWrapper>
       {/* 首页 Section */}
-      <section className="font-alan flex flex-col justify-center px-4 text-white h-screen snap-start">
+      <section className="font-alan flex flex-col justify-center px-4 text-white h-screen snap-start pt-36">
         <h1 className="home-heading">hi! It's siigure</h1>
         <p className="home-subheading">
           Front-end developer exploring full-stack possibilities.
