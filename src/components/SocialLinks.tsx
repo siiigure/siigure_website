@@ -1,4 +1,5 @@
-// components/SocialLinks.tsx
+'use client';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 interface SocialLink {
@@ -35,11 +36,20 @@ const socialLinks: SocialLink[] = [
   }
 ];
 
-export default function SocialLinks() {
+export default function SocialLinksComponent() {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true); // 确保组件在客户端完全加载后再渲染内容
+  }, []);
+
+  if (!hydrated) {
+    // 在客户端加载完成之前，返回一个空的占位符，避免 Hydration 错误
+    return null;
+  }
+
   return (
     <div className="social-links">
-      {' '}
-      {/* gap-8 让图标间距更大 */}
       {socialLinks.map(({ label, href, icon }) => (
         <a
           key={label}
