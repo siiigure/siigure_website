@@ -1,8 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Noto+Sans+SC:wght@100..900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Alan Sans';
+  src: url('/fonts/AlanSans.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ---------- 全局 rem 缩放设置 ---------- */
 html {
@@ -255,6 +261,7 @@ section:first-of-type {
   gap: 8rem;
   width: 100%;
   overflow-x: visible; /* 大屏不用滚动 */
+  -webkit-overflow-scrolling: touch; /* iOS 平滑滚动 */
 }
 
 .photography-item img {
