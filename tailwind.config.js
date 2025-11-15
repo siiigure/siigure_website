@@ -4,11 +4,14 @@ export default {
     './src/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}'
-  ], // 根据你项目路径调整
+  ],
   theme: {
     extend: {
+      textColor: {
+        DEFAULT: '#ffffff'
+      },
       fontFamily: {
-        alan: ['Alan Sans', 'sans-serif'] // 新增
+        alan: ['Alan Sans', 'sans-serif']
       }
     }
   },

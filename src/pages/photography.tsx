@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 
-// Photo data
 const photos = [
   {
     src: '/photos/photography/AnMa.jpg',
@@ -46,35 +45,59 @@ const photos = [
   }
 ];
 
-// Photo grid component
 function PhotoGrid({ items }: { items: typeof photos }) {
   return (
-    <div className="photography-grid">
-      {items.map((photo, index) => (
-        <div key={index} className="photography-item">
-          <div className="relative w-full aspect-[88/108]">
+    <>
+      {/* 桌面端两行四列 */}
+      <div className="hidden md:grid grid-cols-4 gap-2 justify-center">
+        {items.map((photo, index) => (
+          <div key={index} className="flex flex-col items-center">
             <Image
               src={photo.src}
               alt={photo.alt}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover"
+              width={200}
+              height={200}
+              className="object-contain rounded-lg"
             />
+            <p className="mt-1 text-xs text-gray-300 text-center">
+              {photo.caption}
+            </p>
           </div>
-          <p className="photography-caption">{photo.caption}</p>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+
+      {/* 手机和平板竖屏横向滚动 */}
+      <div className="md:hidden flex gap-2 overflow-x-auto px-4 snap-x snap-mandatory scrollbar-hide">
+        {items.map((photo, index) => (
+          <div
+            key={index}
+            className="flex-none snap-start w-[70vw] max-w-[250px]"
+          >
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              width={250}
+              height={200} // 高度自动缩放，object-contain 保持比例
+              className="object-contain rounded-lg"
+            />
+            <p className="mt-1 text-xs text-gray-300 text-center">
+              {photo.caption}
+            </p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
-// Main photography section
 export default function PhotographySection() {
   return (
-    <section className="photography-section min-h-screen snap-start">
-      <h1 className="photography-title">Photography</h1>
+    <section className="min-h-screen snap-start px-4 py-8">
+      <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">
+        Photography
+      </h1>
       <PhotoGrid items={photos} />
-      <p className="mt-6">
+      <p className="mt-4 text-gray-300 max-w-3xl mx-auto text-center text-sm">
         Here's a selection of scenic Polaroids I've snapped so far—more will go
         up as I find new favorites. Stay tuned for those messy little moments
         that somehow make life totally worth it.

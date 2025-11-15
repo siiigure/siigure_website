@@ -24,11 +24,7 @@ const socialLinks: SocialLink[] = [
     href: 'https://www.threads.net/@siigure',
     icon: '/icons/threads.svg'
   },
-  {
-    label: 'X',
-    href: 'https://x.com/siigureouo?s=21',
-    icon: '/icons/x.svg'
-  },
+  { label: 'X', href: 'https://x.com/siigureouo?s=21', icon: '/icons/x.svg' },
   {
     label: 'Gmail',
     href: 'https://mail.google.com/mail/?view=cm&fs=1&to=siiigureouo@gmail.com',
@@ -38,25 +34,20 @@ const socialLinks: SocialLink[] = [
 
 export default function SocialLinksComponent() {
   const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true); // 确保组件在客户端完全加载后再渲染内容
-  }, []);
-
-  if (!hydrated) {
-    // 在客户端加载完成之前，返回一个空的占位符，避免 Hydration 错误
-    return null;
-  }
+  useEffect(() => setHydrated(true), []);
+  if (!hydrated) return null;
 
   return (
-    <div className="social-links">
-      {socialLinks.map(({ label, href, icon }) => (
+    <div className="flex justify-start items-center flex-wrap mt-[4px] gap-[20px]">
+      {socialLinks.map(({ label, href, icon }, i) => (
         <a
           key={label}
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="block items-center"
+          className={`block hover:scale-110 transition-transform duration-200 ${
+            i !== socialLinks.length - 1 ? 'mr-8 md:mr-12 lg:mr-16' : ''
+          }`} // 控制图标间距
         >
           <Image
             src={icon}

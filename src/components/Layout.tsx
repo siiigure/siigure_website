@@ -1,20 +1,51 @@
-interface LayoutProps {
-  title?: string;
-  description?: string;
-  children: React.ReactNode;
-}
+'use client';
+import React, { useEffect, useState } from 'react';
 
-export default function Layout({ title, description, children }: LayoutProps) {
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // 根据宽度设置边距和 maxWidth
+  let containerStyle: React.CSSProperties = {
+    width: '85%',
+    margin: '0 auto',
+    maxWidth: '900px'
+  };
+
+  if (width >= 1024) {
+    containerStyle = {
+      ...containerStyle,
+      maxWidth: '900px',
+      paddingLeft: '12rem',
+      paddingRight: '12rem'
+    };
+  } else if (width >= 768) {
+    containerStyle = {
+      ...containerStyle,
+      maxWidth: '900px',
+      paddingLeft: '1rem',
+      paddingRight: '1rem'
+    };
+  } else if (width >= 480) {
+    containerStyle = {
+      ...containerStyle,
+      maxWidth: '700px',
+      paddingLeft: '0.2rem',
+      paddingRight: '0.2rem'
+    };
+  }
+
   return (
-    <div
-      className="min-h-screen w-full relative overflow-hidden bg-gradient-to-b from-indigo-600 via-sky-600 to-purple-600 text-white selection:bg-white/30 selection:text-black"
-      data-title={title ?? ''}
-      data-description={description ?? ''}
-    >
-      {/* site-container 负责 max-width + padding，统一全站边距 */}
-      <div className="relative z-10 site-container py-8 sm:py-12">
-        {children}
-      </div>
+    <div className="layout-container text-white relative min-h-screen w-screen overflow-x-hidden">
+      <div style={containerStyle}>{children}</div>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- 字体 ---------- */
 @font-face {
   font-family: 'Alan Sans';
   src: url('/fonts/AlanSans.woff2') format('woff2');
@@ -10,41 +11,86 @@
   font-display: swap;
 }
 
-/* ---------- 全局 rem 缩放设置 ---------- */
+/* ---------- 全局字体 ---------- */
+* {
+  font-family: 'Alan Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+  font-variation-settings: 'MONO' 0, 'CRSV' 0;
+}
+
+/* ---------- 全局背景 ---------- */
+body {
+  font-family: 'Alan Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei',
+    sans-serif !important;
+  background: radial-gradient(circle at 50% 50%, #0000, #ffffff10),
+    radial-gradient(farthest-side at bottom right, #020029, #0000),
+    radial-gradient(farthest-side at top right, #f9d2e4, #0000),
+    radial-gradient(farthest-corner at bottom left, #4666b9, #0000),
+    radial-gradient(farthest-corner at top left, #0d7e9c, #0000);
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('/photos/noise.png') repeat;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Global Base Styles ---------- */
 html {
-  font-size: 6.25%; /* 1rem = 1px 基础比例 */
+  @apply scroll-smooth;
+}
+
+/* ---------- Utilities ---------- */
+@layer utilities {
+  /* 可变字体控制 */
+  .mono-0 {
+    --mono: 0;
+  }
+  .mono-55 {
+    --mono: 0.55;
+  }
+  .mono-100 {
+    --mono: 1;
+  }
+  .CRSV-1 {
+    --CRSV: 1;
+  }
+
+  /* 隐藏滚动条 */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+  /* ---------- 全局 rem 缩放设置 ---------- */
+/* html {
+    font-size: 6.25%; /* 默认：1rem = 1px 
 }
 
 @media screen and (max-width: 430px) {
   html {
-    font-size: 3.75%; /* 小屏整体缩小 */
+    font-size: 10%; /* 小屏整体放大，让文字变大 
   }
-}
+} */
 
-@media screen and (min-width: 768px) {
-  html {
-    font-size: 5.25%; /* 中屏 */
-  }
-}
-
-@media screen and (min-width: 992px) {
-  html {
-    font-size: 6.25%; /* 大屏 */
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  html {
-    font-size: 6.25%; /* 特大屏整体放大一点 */
-  }
-}
-
-/* ---------- Site-wide gutter variables ---------- */
-:root {
-  --site-gutter-mobile: 12rem; /* 8px */
-  --site-gutter-desktop: 16rem; /* 16px */
-  --site-max-content-width: 800rem; /* 800px */
-}
+/* ---------- Site-wide gutter variables ----------
+/* :root { 
+/* --site-gutter-mobile: 12rem; 8px 
+/* --site-gutter-desktop: 16rem; 16px 
+/* --site-max-content-width: 800rem; 800px 
+/* } 
 
 .site-container {
   max-width: var(--site-max-content-width);
@@ -84,17 +130,17 @@ body::after {
   color: #7886c7;
 }
 
-#__next {
-  padding-left: var(--site-gutter-mobile);
-  padding-right: var(--site-gutter-mobile);
-}
+/* #__next { */
+/* padding-left: var(--site-gutter-mobile); */
+/* padding-right: var(--site-gutter-mobile); */
+/* } 
 
 p {
   line-height: 1.8;
   margin-bottom: 16rem;
 }
 
-/* ------------------- scroll-snap 整页滚动 ------------------- */
+------------------- scroll-snap 整页滚动 -------------------
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -103,18 +149,19 @@ p {
   display: none;
 }
 
-/* ------------------- 首页 ------------------- */
+
+------------------- 首页 -------------------
 section:first-of-type {
   padding-top: 40px;
 }
 .home-heading {
-  font-size: 96rem; /* 原6rem → 96rem=96px */
+  /* font-size: 96rem;
   font-weight: bold;
   margin: 16rem 0 3rem;
 }
 
 .home-subheading {
-  font-size: 24rem;
+  /* font-size: 24rem; 
   margin: 10rem 0 80rem;
   color: #ffffff;
   font-weight: 400;
@@ -123,7 +170,7 @@ section:first-of-type {
 .social-links {
   display: flex;
   gap: 24rem;
-  margin-top: 5rem; /* 加这一行 */
+  margin-top: 5rem;
 }
 
 .home-main-grid {
@@ -149,7 +196,7 @@ section:first-of-type {
 }
 
 .home-right p {
-  font-size: 20rem;
+  /* font-size: 20rem; 
   margin-bottom: 16rem;
   line-height: 1.7;
   color: #e5e7eb;
@@ -161,14 +208,14 @@ section:first-of-type {
   }
 }
 
-/* ------------------- 导航 ------------------- */
+------------------- 导航 -------------------
 .nav-item {
   display: flex;
   align-items: center;
   gap: 12rem;
   position: relative;
   font-weight: 500;
-  font-size: 24rem;
+  /* font-size: 24rem; 
   text-decoration: none;
   transition: all 0.3s ease;
   color: inherit;
@@ -195,7 +242,7 @@ section:first-of-type {
   opacity: 1;
 }
 
-/* ------------------- BlogNav ------------------- */
+------------------- BlogNav -------------------
 .blog-nav-section {
   display: grid;
   grid-template-rows: auto auto 1fr;
@@ -207,7 +254,7 @@ section:first-of-type {
 }
 
 .blog-nav-section p {
-  font-size: 19rem;
+  /* font-size: 19rem; 
   text-align: left;
   margin: 0;
 }
@@ -218,7 +265,7 @@ section:first-of-type {
   align-items: flex-start;
   gap: 48rem;
   font-family: 'Alan Sans', sans-serif;
-  font-size: 32rem;
+  /* font-size: 32rem; 
   color: white;
 }
 
@@ -232,16 +279,16 @@ section:first-of-type {
   color: #f9d2e4;
 }
 
-/* ------------------- Photography ------------------- */
+------------------- Photography -------------------
 .photography-section {
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  /* 去掉多余的 padding 和 max-width，让它跟 body 对齐 */
+  /* 去掉多余的 padding 和 max-width，让它跟 body 对齐 
 }
 
 .photography-caption {
-  font-size: 12px !important;
+  /* font-size: 12px !important; 
   margin-top: 8px !important;
   text-align: center !important;
   color: #d1d5db !important;
@@ -249,19 +296,19 @@ section:first-of-type {
   line-height: 1.4 !important;
 }
 .photography-section p {
-  font-size: 18rem;
+  /* font-size: 18rem; 
   line-height: 1.8;
   margin: 0 0 16rem;
 }
 
-/* 默认：大屏 4 列 */
+/* 默认：大屏 4 列 
 .photography-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8rem;
   width: 100%;
-  overflow-x: visible; /* 大屏不用滚动 */
-  -webkit-overflow-scrolling: touch; /* iOS 平滑滚动 */
+  overflow-x: visible; /* 大屏不用滚动 
+  -webkit-overflow-scrolling: touch; /* iOS 平滑滚动 
 }
 
 .photography-item img {
@@ -271,7 +318,7 @@ section:first-of-type {
 }
 
 .photography-title {
-  font-size: 36rem;
+  /* font-size: 36rem; 
   font-weight: 600;
   color: white;
   margin: 64rem 0;
@@ -286,16 +333,16 @@ section:first-of-type {
 
 .photography-footer {
   margin-top: 64rem;
-  font-size: 16rem;
+  /* font-size: 16rem; 
   color: #d1d5db;
 }
 
-/* ---------- 小屏（≤798px）：横向滚动 + 放大 ---------- */
+/* ---------- 小屏（≤798px）：横向滚动 + 放大 ---------- 
 @media (max-width: 798px) {
   .photography-grid {
     display: flex;
     flex-wrap: nowrap;
-    gap: 16rem; /* 间距拉大一些 */
+    gap: 16rem; 
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-bottom: 16rem;
@@ -303,7 +350,7 @@ section:first-of-type {
   }
 
   .photography-item {
-    flex: 0 0 80%; /* 每个 item 占屏宽 80%，看起来更大 */
+    flex: 0 0 80%; /* 每个 item 占屏宽 80%，看起来更大
     scroll-snap-align: start;
   }
 
@@ -311,33 +358,33 @@ section:first-of-type {
     border-radius: 8rem;
   }
 }
-/* ------------------- More Section ------------------- */
+------------------- More Section -------------------
 .more-section {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   row-gap: 16rem;
-  /* padding: 32rem var(--site-gutter-mobile); */
+   max-width: var(--site-max-content-width); */
+/* padding: 32rem var(--site-gutter-mobile); 
   width: 100%;
-  max-width: var(--site-max-content-width);
 }
-
-.more-title {
-  font-size: 36rem;
-  margin-bottom: 8rem;
+/* 
+.more-title { */
+/* font-size: 36rem; */
+/* margin-bottom: 8rem; */
+/* 
 }
+.more-world { */
+/* margin-bottom: 8rem; */
+/* }
 
-.more-world {
-  margin-bottom: 8rem;
-}
-
-.more-section p {
-  font-size: 18rem;
-  line-height: 1.8;
+.more-section p { */
+/* font-size: 18rem; */
+/* line-height: 1.8;
   margin: 0 0 16rem;
-}
+} */
 
 /* ------------------- Utility overrides ------------------- */
-.px-12 {
+/* .px-12 {
   padding-left: var(--site-gutter-desktop) !important;
   padding-right: var(--site-gutter-desktop) !important;
 }
@@ -350,44 +397,16 @@ section:first-of-type {
 .px-4 {
   padding-left: calc(var(--site-gutter-mobile) + 4rem) !important;
   padding-right: calc(var(--site-gutter-mobile) + 4rem) !important;
-}
+} */
 
-section {
-  padding-left: var(--site-gutter-mobile);
-  padding-right: var(--site-gutter-mobile);
-}
+/* section { */
+/* padding-left: var(--site-gutter-mobile); */
+/* padding-right: var(--site-gutter-mobile); */
+/* } */
 
 /* ------------------- Responsive columns ------------------- */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .home-main-grid {
-    grid-template-columns: 1fr; /* 单列 */
-  }
-}
-
-/* @media (min-width: 640px) {
-  :root {
-    --site-gutter-mobile: 12rem;
-  }
-  .photography-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --site-gutter-mobile: 16rem;
-    --site-gutter-desktop: 20rem;
-  }
-  .photography-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 1536px) {
-  :root {
-    --site-gutter-desktop: 28rem;
-  }
-  .photography-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr; /* 单列 
   }
 } */
