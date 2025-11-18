@@ -29,28 +29,23 @@ export default function MoreSection() {
       </div>
 
       {/* Introductory paragraphs */}
-      <p
-        className="mb-4 md:mb-6"
+      <div
+        className="home-right col-span-3 text-left right-text-mobile [@media(min-width:380px)_and_(max-width:768px)]:text-left [@media(min-width:380px)_and_(max-width:768px)]:mt-1"
         style={{
           fontSize: '1.2rem',
           lineHeight: 1.6,
           color: 'rgba(255,255,255,0.8)'
         }}
       >
-        These are bits and pieces of my life—still messy, not in any order, and
-        definitely a work in progress...
-      </p>
-      <p
-        className="mb-4 md:mb-6"
-        style={{
-          fontSize: '1.2rem',
-          lineHeight: 1.6,
-          color: 'rgba(255,255,255,0.8)'
-        }}
-      >
-        Slowly sharing them with you, and thanks for sticking around to check it
-        out.
-      </p>
+        <p className="mb-4 md:mb-6">
+          These are bits and pieces of my life—still messy, not in any order,
+          and definitely a work in progress...
+        </p>
+        <p className="mb-4 md:mb-6">
+          Slowly sharing them with you, and thanks for sticking around to check
+          it out.
+        </p>
+      </div>
     </section>
   );
 }

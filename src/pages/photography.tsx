@@ -134,18 +134,20 @@ export default function PhotographySection() {
 
       <PhotoGrid items={photos} />
 
-      <p
-        className="mb-4 md:mb-6"
+      <div
+        className="home-right col-span-3 text-left right-text-mobile [@media(min-width:380px)_and_(max-width:768px)]:text-left [@media(min-width:380px)_and_(max-width:768px)]:mt-1"
         style={{
           fontSize: '1.2rem',
           lineHeight: 1.6,
           color: 'rgba(255,255,255,0.8)'
         }}
       >
-        Here's a selection of scenic Polaroids—more to come as I find new
-        favorites. Stay tuned for those messy little moments that make life
-        worth it.
-      </p>
+        <p className="mb-4 md:mb-6">
+          Here's a selection of scenic Polaroids—more to come as I find new
+          favorites. Stay tuned for those messy little moments that make life
+          worth it.
+        </p>
+      </div>
     </section>
   );
 }
