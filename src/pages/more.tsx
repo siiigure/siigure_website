@@ -8,7 +8,7 @@ export default function MoreSection() {
       {/* Section title */}
       <h1
         style={{
-          fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+          fontSize: 'clamp(2rem, 4vw, 3rem)',
           lineHeight: 1,
           marginBottom: '1.5rem',
           textAlign: 'left',

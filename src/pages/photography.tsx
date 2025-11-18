@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 // === Photo Data ===
 const photos = [
@@ -49,7 +50,6 @@ const photos = [
 function PhotoGrid({ items }: { items: typeof photos }) {
   return (
     <>
-      {/* Desktop Grid */}
       <div className="hidden min-[781px]:grid grid-cols-4 gap-2 justify-center">
         {items.map((photo, index) => (
           <div key={index} className="flex flex-col items-center">
@@ -67,7 +67,6 @@ function PhotoGrid({ items }: { items: typeof photos }) {
         ))}
       </div>
 
-      {/* Mobile Scroll */}
       <div className="flex max-[780px]:flex max-[780px]:overflow-x-auto max-[780px]:snap-x max-[780px]:snap-mandatory max-[780px]:px-4 max-[780px]:gap-2 scrollbar-hide min-[781px]:hidden">
         {items.map((photo, index) => (
           <div
@@ -93,13 +92,29 @@ function PhotoGrid({ items }: { items: typeof photos }) {
 
 // === Photography Section ===
 export default function PhotographySection() {
+  const [paddingTop, setPaddingTop] = useState('5rem');
+  const [titleMarginBottom, setTitleMarginBottom] = useState('6rem');
+
+  useEffect(() => {
+    const updateSpacing = () => {
+      if (window.innerWidth <= 700) {
+        setPaddingTop('1rem');
+        setTitleMarginBottom('8rem');
+      } else {
+        setPaddingTop('5rem');
+        setTitleMarginBottom('6rem');
+      }
+    };
+    updateSpacing();
+    window.addEventListener('resize', updateSpacing);
+    return () => window.removeEventListener('resize', updateSpacing);
+  }, []);
+
   return (
     <section
       className="min-h-screen snap-start"
       style={{
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
-        paddingTop: '5rem',
+        paddingTop: paddingTop, // 用 state
         maxWidth: '900px',
         marginLeft: 'auto',
         marginRight: 'auto'
@@ -107,9 +122,9 @@ export default function PhotographySection() {
     >
       <h1
         style={{
-          fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+          fontSize: 'clamp(2rem, 4vw, 3rem)',
           lineHeight: 1,
-          marginBottom: '6rem',
+          marginBottom: titleMarginBottom, // 用 state
           textAlign: 'left',
           color: 'white'
         }}
@@ -127,9 +142,9 @@ export default function PhotographySection() {
           color: 'rgba(255,255,255,0.8)'
         }}
       >
-        Here's a selection of scenic Polaroids I've snapped so far—more will go
-        up as I find new favorites. Stay tuned for those messy little moments
-        that somehow make life totally worth it.
+        Here's a selection of scenic Polaroids—more to come as I find new
+        favorites. Stay tuned for those messy little moments that make life
+        worth it.
       </p>
     </section>
   );

@@ -1,5 +1,5 @@
 'use client';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 type Heading = {
   id: string;
@@ -18,6 +18,18 @@ const DEFAULT_HEADINGS: Heading[] = [
 export default function BlogNav({ headings }: BlogNavProps) {
   const headingsToUse = useMemo(() => headings ?? DEFAULT_HEADINGS, [headings]);
 
+  // Dynamic margin for mobile screens
+  const [marginTop, setMarginTop] = useState('6rem');
+
+  useEffect(() => {
+    const updateMargin = () => {
+      setMarginTop(window.innerWidth <= 700 ? '2rem' : '6rem');
+    };
+    updateMargin(); // initial check
+    window.addEventListener('resize', updateMargin);
+    return () => window.removeEventListener('resize', updateMargin);
+  }, []);
+
   return (
     <section className="mt-24 md:mt-32 lg:mt-40 w-full max-w-screen-xl mx-auto flex flex-col items-start mb-4 md:mb-[8rem]">
       {/* Introductory text */}
@@ -26,13 +38,12 @@ export default function BlogNav({ headings }: BlogNavProps) {
         style={{
           fontSize: '1.2rem',
           lineHeight: 1.6,
-          marginTop: '6rem',
+          marginTop,
           maxWidth: '900px'
         }}
       >
         These are things I jot down casually: tech, creativity, and the
-        occasional thought. There's no set format — if my words reach you, it's
-        as if I'm standing here in front of you.
+        occasional thought.
       </p>
 
       {/* Navigation list */}
@@ -119,17 +130,6 @@ export default function BlogNav({ headings }: BlogNavProps) {
             </svg>
           </a>
         ))}
-
-        {/* Fixed width for large screens */}
-        <style jsx>{`
-          @media screen and (min-width: 1180px) {
-            nav {
-              width: 800px !important;
-              margin-left: auto !important;
-              margin-right: auto !important;
-            }
-          }
-        `}</style>
       </nav>
     </section>
   );
