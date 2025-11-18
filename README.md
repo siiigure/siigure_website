@@ -31,8 +31,8 @@ Siigure Website is a responsive multi-page personal/project website built with *
 
 ## Screenshot
 
-![Homepage](./photos/screenshot.png)
-![User Screen](./photos/userscreen.png)
+![Homepage](./public/photos/screenshot.png)
+![User Screen](./public/photos/userscreen.png)
 
 ## Getting Started (Optional)
 
