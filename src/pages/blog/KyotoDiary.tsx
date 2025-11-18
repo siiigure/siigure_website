@@ -16,19 +16,32 @@ export default function Blog1Page() {
 
   return (
     <main>
-      {/* 标题区域 */}
-      <header className="mb-[180rem] text-right relative">
-        <h1 className="text-[64rem] md:text-[88rem] font-bold text-pink-200 tracking-wide mb-[16rem]">
+      {/* HEADER */}
+      <header className="mb-[180px] text-right relative">
+        <h1
+          className="font-bold text-pink-200 tracking-wide mb-[16px]"
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}
+        >
           京都小住随记
         </h1>
-        <div className="text-[24rem] text-gray-400">Kyoto · Winter</div>
-        <div className="text-[16rem] text-gray-500 mt-[8rem]">
+
+        <div
+          className="text-gray-400"
+          style={{ fontSize: 'clamp(1rem, 2.5vw, 1.6rem)' }}
+        >
+          Kyoto · Winter
+        </div>
+
+        <div
+          className="text-gray-500 mt-[8px]"
+          style={{ fontSize: 'clamp(0.9rem, 2vw, 1.2rem)' }}
+        >
           August 13, 2025
         </div>
       </header>
 
-      {/* 正文区域 */}
-      <article className="max-w-[800rem] mx-auto space-y-[48rem]">
+      {/* TEXT */}
+      <article className="max-w-[800px] mx-auto space-y-[48px]">
         {lines.map((line, i) => {
           const isHeading =
             /^[一二三四五六七八九十]+$/.test(line.trim()) ||
@@ -41,18 +54,21 @@ export default function Blog1Page() {
           return (
             <div key={i}>
               {showDivider && (
-                <hr className="border-gray-700 w-[80rem] mx-auto my-[72rem]" />
+                <hr className="border-gray-700 w-[80%] mx-auto my-[72px]" />
               )}
               {isHeading ? (
-                <h2 className="text-[32rem] md:text-[40rem] font-semibold mt-[80rem] mb-[32rem] text-pink-200 tracking-wide">
+                <h2 className="text-[32px] md:text-[40px] font-semibold mt-[80px] mb-[32px] text-pink-200 tracking-wide">
                   {line.trim()}
                 </h2>
               ) : isQuote ? (
-                <blockquote className="text-[22rem] text-gray-300 italic border-l-[4rem] border-pink-400 pl-[24rem] my-[32rem]">
+                <blockquote className="text-[22px] text-gray-300 italic border-l-[4px] border-pink-400 pl-[24px] my-[32px]">
                   {line.trim()}
                 </blockquote>
               ) : (
-                <p className="text-[20rem] text-gray-100 whitespace-pre-line font-normal">
+                <p
+                  className="text-gray-100 whitespace-pre-line font-normal leading-[1.85]"
+                  style={{ fontSize: 'clamp(1rem, 2.6vw, 1.35rem)' }}
+                >
                   {line.trim()}
                 </p>
               )}
@@ -61,16 +77,15 @@ export default function Blog1Page() {
         })}
       </article>
 
-      {/* 底部箭头区域：更接近正文、底部留距更大、颜色跟文本一致并 hover 左移 */}
-      <div className="mt-[80rem] mb-[200rem] flex justify-start max-w-[800rem] mx-auto">
+      {/* BOTTOM ARROW */}
+      <div className="mt-[80px] mb-[200px] flex justify-start max-w-[800px] mx-auto">
         <Link
           href="/#blog"
           aria-label="Back to Blog"
           className="group inline-flex items-center text-[#e5e7eb] hover:text-[#f9d2e4] transition-colors duration-500"
         >
-          {/* inline SVG：stroke 使用 currentColor（跟随父元素 color） */}
           <svg
-            className="w-[56rem] h-[56rem] opacity-60 group-hover:opacity-100 transform transition-transform duration-500 group-hover:-translate-x-[6rem]"
+            className="w-[56px] h-[56px] opacity-60 group-hover:opacity-100 transform transition-transform duration-500 group-hover:-translate-x-[6px]"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

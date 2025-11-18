@@ -4,16 +4,15 @@ import React, { useEffect, useState } from 'react';
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [width, setWidth] = useState(0);
 
+  /* Track window width */
   useEffect(() => {
     setWidth(window.innerWidth);
-
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // 根据宽度设置边距和 maxWidth
+  /* Responsive container style based on width */
   let containerStyle: React.CSSProperties = {
     width: '85%',
     margin: '0 auto',
@@ -43,6 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     };
   }
 
+  /* Layout wrapper */
   return (
     <div className="layout-container text-white relative min-h-screen w-screen overflow-x-hidden">
       <div style={containerStyle}>{children}</div>

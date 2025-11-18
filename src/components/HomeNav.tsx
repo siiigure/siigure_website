@@ -1,12 +1,14 @@
 'use client';
 import React from 'react';
 
+// === Component Types ===
 interface HomeNavProps {
   children?: React.ReactNode;
   activeId?: string;
   onChange?: (id: string) => void;
 }
 
+// === Navigation Items ===
 const items = [
   { id: 'about', label: 'About' },
   { id: 'blog', label: 'Blog' },
@@ -14,6 +16,7 @@ const items = [
   { id: 'more', label: 'More' }
 ];
 
+// === Component ===
 export default function HomeNav({
   children,
   activeId,
@@ -21,6 +24,7 @@ export default function HomeNav({
 }: HomeNavProps) {
   return (
     <section className="home-nav-section">
+      {/* === Navigation === */}
       <nav className="home-nav">
         {items.map((it) => {
           const isActive = it.id === activeId;
@@ -30,7 +34,14 @@ export default function HomeNav({
               key={it.id}
               href={`#${it.id}`}
               className={`nav-item ${isActive ? 'active' : ''}`}
-              onClick={() => onChange?.(it.id)}
+              onClick={(e) => {
+                const target = document.getElementById(it.id);
+                if (target) {
+                  e.preventDefault();
+                  onChange?.(it.id);
+                  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
             >
               {it.label}
               <span className="underline" />
@@ -39,16 +50,17 @@ export default function HomeNav({
         })}
       </nav>
 
+      {/* === Content Slot === */}
       <div style={{ flex: 1 }}>{children}</div>
 
+      {/* === Styles === */}
       <style jsx>{`
-        /* 统一定义变量，方便你未来调数值 */
-        :root {
-          --underline-active: 80%;
-          --underline-short: 2.2rem;
+        :global(:root) {
+          --underline-active: 4.4rem;
+          --underline-short: 3.2rem;
         }
 
-        /* ========== 大屏（默认） ========== */
+        /* === Desktop Layout === */
         section.home-nav-section {
           display: flex;
           flex-direction: row;
@@ -68,7 +80,7 @@ export default function HomeNav({
           align-items: center;
           font-weight: 500;
           color: #fff;
-          padding-bottom: 0.5rem;
+          padding-bottom: 0.6rem;
           position: relative;
           cursor: pointer;
           text-decoration: none;
@@ -77,31 +89,33 @@ export default function HomeNav({
 
         .nav-item .underline {
           position: absolute;
-          bottom: 0;
           left: 0;
+          bottom: 0.18rem;
           height: 4px;
           background-color: #fff;
           border-radius: 9999px;
-          opacity: 1;
-          width: 2rem;
-        }
-
-        .nav-item.active .underline {
-          width: var(--underline-active);
+          width: var(--underline-short);
+          transition: width 0.22s ease;
+          display: block;
         }
 
         .nav-item:not(.active) .underline {
           width: var(--underline-short);
         }
 
+        .nav-item.active .underline {
+          width: var(--underline-active);
+        }
+
         .nav-item:not(.active):hover .underline {
-          width: var(--underline-active); /* 强制与 active 一样长 */
+          width: var(--underline-active);
         }
 
         .nav-item:hover {
           transform: translateX(6px);
         }
 
+        /* === Mobile Layout === */
         @media (max-width: 767px) {
           section.home-nav-section {
             flex-direction: column;
@@ -117,24 +131,29 @@ export default function HomeNav({
             width: 100%;
             gap: 0.5rem;
             max-width: none !important;
-            overflow-x: unset;
           }
 
           .nav-item {
             font-size: 0.9rem;
-            padding: 0.25rem 0.3rem;
+            padding: 0.25rem 0.3rem 0.45rem;
             white-space: nowrap;
             transform: none !important;
             flex: 1;
             text-align: center;
           }
 
-          /* 手机：只显示 active 下划线，不随悬停变化 */
+          .nav-item .underline {
+            display: none;
+          }
 
           .nav-item.active .underline {
             display: block;
-            width: 58%; /* active 下划线固定长度 */
+            width: fit-content;
+            min-width: 50%;
             height: 3px;
+            bottom: 0.18rem;
+            margin: auto;
+            right: 90px;
           }
         }
       `}</style>

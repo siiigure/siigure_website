@@ -5,10 +5,20 @@ import Image from 'next/image';
 export default function MoreSection() {
   return (
     <section className="more-section">
-      {/* 标题：单独类 */}
-      <h1 className="more-title">More to Come</h1>
+      {/* Section title */}
+      <h1
+        style={{
+          fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+          lineHeight: 1,
+          marginBottom: '1.5rem',
+          textAlign: 'left',
+          color: 'white'
+        }}
+      >
+        More to Come
+      </h1>
 
-      {/* Add a custom class for this image */}
+      {/* Featured image */}
       <div className="relative mt-6 aspect-[3/2] more-image">
         <Image
           src="/photos/road.jpg"
@@ -18,12 +28,26 @@ export default function MoreSection() {
         />
       </div>
 
-      {/* 引言段落 */}
-      <p className="mt-6">
+      {/* Introductory paragraphs */}
+      <p
+        className="mb-4 md:mb-6"
+        style={{
+          fontSize: '1.2rem',
+          lineHeight: 1.6,
+          color: 'rgba(255,255,255,0.8)'
+        }}
+      >
         These are bits and pieces of my life—still messy, not in any order, and
         definitely a work in progress...
       </p>
-      <p>
+      <p
+        className="mb-4 md:mb-6"
+        style={{
+          fontSize: '1.2rem',
+          lineHeight: 1.6,
+          color: 'rgba(255,255,255,0.8)'
+        }}
+      >
         Slowly sharing them with you, and thanks for sticking around to check it
         out.
       </p>
