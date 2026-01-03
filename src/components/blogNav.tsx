@@ -12,7 +12,12 @@ interface BlogNavProps {
 }
 
 const DEFAULT_HEADINGS: Heading[] = [
-  { id: 'KyotoDiary', text: '京都小住随记', date: 'August 13, 2025' }
+  { id: 'KyotoDiary', text: '京都小住随记', date: 'August 13, 2025' },
+  {
+    id: 'Percolation',
+    text: 'Princeton Algorithms: Percolation Project Reflection',
+    date: ' April 2, 2025'
+  }
 ];
 
 export default function BlogNav({ headings }: BlogNavProps) {

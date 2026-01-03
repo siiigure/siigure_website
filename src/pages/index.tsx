@@ -104,8 +104,8 @@ export default function HomePage() {
               <strong className="text-white">
                 analog and creative hobbies
               </strong>{' '}
-              — Polaroids, films, books, and miniature dioramas. Music too — I
-              play classical guitar and sometimes a melodica.
+              — Polaroids, films, and miniature dioramas. Music too, I play
+              classical guitar and sometimes a melodica.
             </p>
             <p className="mb-4 md:mb-6">
               I enjoy making things, whether it's{' '}
