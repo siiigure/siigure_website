@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Alan Sans';
+  src: url('/fonts/AlanSans.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  font-family: 'Alan Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+  font-variation-settings: 'MONO' 0, 'CRSV' 0;
+}
+
+body {
+  display: block !important;
+  font-family: 'Alan Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei',
+    sans-serif !important;
+  background: radial-gradient(circle at 50% 50%, #0000, #ffffff10),
+    radial-gradient(farthest-side at bottom right, #a891eb, #0000),
+    radial-gradient(farthest-side at top right, #3b84ae, #0000),
+    radial-gradient(farthest-corner at bottom left, #346c8c, #0000),
+    radial-gradient(farthest-corner at top left, #4972e0, #0000);
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('/photos/noise.png') repeat;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

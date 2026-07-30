@@ -1,0 +1,81 @@
+PART 1
+
+Imagine you have a huge N×N pixel grid in front of you. Each pixel (which we call a “site”) is either black (blocked) or white (open).
+The core question of the [Princeton Percolation Project](https://coursera.cs.princeton.edu/algs4/assignments/percolation/specification.php) is: what proportion of white pixels, when randomly lit up, will suddenly cause the entire grid to conduct? That is, a completely white path will appear in the pixel grid, connecting the top edge all the way to any location on the bottom edge.
+![open](\photos\images\pix.png)
+The question the assignment asks is: what proportion of white pixels, when randomly lit up, will suddenly cause the entire grid to conduct? That is, a completely white path will appear in the pixel grid, connecting the top edge all the way to any location on the bottom edge.
+
+The critical point of this “conduction” is the percolation critical threshold p* that we are looking for.
+When p < p*, the system is almost impossible to form a path across the entire grid; but when p > p*, the system almost certainly forms such a path, meaning it percolates. This sudden transition from non-connectivity to connectivity is known as a Phase Transition in physics.
+![open](\photos\images\open.png)![open](\photos\images\block.png)
+Since the exact mathematical solution for p* is difficult to obtain, we use Monte Carlo Simulation for high-precision estimation.
+
+
+
+PART 2
+The first question is: how do we efficiently determine “connectivity”? In the past, every time we lit up a pixel, we had to immediately ask: “Are the top and bottom edges connected?” However, if the grid boundary $N$ is large (e.g., $1000 \times 1000$), brute-forcing all paths would take too much time. Therefore, we need a faster tool to judge connectivity. This is where Union-Find, learned in this module, comes in. This tool is called WeightedQuickUnionUF in the Princeton libraries. You can think of it as a “tribal management system”:
+>1.Each pixel site on the grid is a small tribe.
+>2.When you light up a pixel, it “merges tribes” with its adjacent, already-lit neighbors.
+>3.To determine if two pixels are connected, you only need to ask the system: “Do they belong to the same tribe?”.
+
+Using Union-Find ensures that the operation performance is close to constant time $O(\alpha(N))$, thus meeting the performance requirements.
+
+To simplify boundary handling and connectivity judgment, we introduce two Virtual Sites outside the $N * N$ grid: the Top Virtual Site $V_{top}$, which connects to all open sites in the first row, and the Bottom Virtual Site $V_{bottom}$, which connects to all open sites in the last row. Determining “percolation” becomes simple: just ask if $V_{top}$ and $V_{bottom}$ are connected.
+
+However, there is a big trap here that requires us to use two Union-Find structures to avoid—this is the famous “Backwash Problem”.
+
+The issue is that we define a pixel as “Full” if and only if it can receive water/source from the top edge. If we only use one UF structure, a site at the bottom might first connect to $V_{bottom}$, and then, via the path connecting $V_{bottom}$ and $V_{top}$, pretend to be Full. But in reality, the water flow never came from the top edge! To solve this, we adopt a Double Insurance Strategy:
+>1.ufPercolate: Contains both $V_{top}$ and $V_{bottom}$.Its sole responsibility is to judge whether the system is fully conductive.
+>2.ufFull: Only contains $V_{top}$ and intentionally excludes $V_{bottom}$.Its responsibility is only to judge whether the source originates from the top edge.
+
+In the Percolation constructor, we initialize these two structures with different sizes to implement this separation of duties:
+```
+uf = new WeightedQuickUnionUF(n * n + 2);
+ufFull = new WeightedQuickUnionUF(n * n + 1);
+```
+Furthermore, in the open() method, we strictly control the bottom row connection, ensuring only the uf structure connects to the bottom:
+```
+if (row == gridwidth) {
+    uf.union(virtualBottom, currIndex);
+}
+```
+With this “Double Union-Find” design, we perfectly solve all performance and logical issues!
+
+
+
+PART 3
+Now that we have the powerful Percolation class, it’s time to perform the Monte Carlo Simulation. Monte Carlo sounds complex, but it’s simply using a large number of random trials to approximate the truth. Our T-trial procedure is:
+>1.Start with an entirely blocked $N \times N$ grid.
+>2.Randomly select a currently blocked pixel site and open it.
+>3.Repeat step 2 until perc.percolates() returns true for the first time.
+>4.Record the proportion of open sites at that moment, $x_t$ (e.g., 204/400=0.51).
+
+This core Monte Carlo loop is found within the PercolationStats constructor:
+``` 
+for (int i = 0; i < T; i++) { 
+    Percolation perc = new Percolation(n);
+    while (!perc.percolates()) {
+        int row = StdRandom.uniform(n) + 1;
+        int col = StdRandom.uniform(n) + 1;
+        perc.open(row, col); 
+    }
+    Tresholds[i] = perc.numberofOpenSites() / area;
+}
+```
+
+
+
+PART 4
+Based on $T$ trials $\{x_1, x_2, \dots, x_T\}$, we estimate $p*$ using the Sample Mean $\bar{x}$. Precision is quantified by the Standard Deviation $s$. The result is framed as a 95% Confidence Interval, defining the range within which the true value of $p*$ lies with high confidence.
+![open](\photos\images\p.png)![open](\photos\images\p1.png)
+The calculation for this interval is:$[\bar{x} - 1.96s/\sqrt{T}, \bar{x} + 1.96s/\sqrt{T}]$
+
+```
+public double confidenceLo() { 
+    double means = mean();
+    double stddevs = stddev(); 
+    return means - 1.96 * stddevs / Math.sqrt(T);
+}
+```
+
+Through this project, we not only mastered Union-Find, an efficient algorithm for handling connectivity, but also learned how to use Monte Carlo and basic statistics (mean, standard deviation, confidence interval) to explore a complex scientific problem. The final experimental result of $\bar{x} \approx 0.5927$ is not just code output; it represents the precise boundary where phase transition occurs on a 2D grid, which is the coolest part of this assignment!
